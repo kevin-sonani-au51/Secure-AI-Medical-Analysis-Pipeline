@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Medical Analysis - Demo</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div class="brand">
+          <div class="logo">AI</div>
+          <div>
+            <h1>AI Medical Analysis</h1>
+            <div class="tag">Document PII redaction & extraction</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container">
+        <section id="auth" class="card">
+          <h2>Welcome</h2>
+          <p class="muted">
+            Sign in to upload medical documents for automated analysis.
+          </p>
+          <div id="auth-forms" class="auth-grid">
+            <div class="form">
+              <h3>Create account</h3>
+              <label
+                >Name<input id="reg-name" placeholder="Full name" required
+              /></label>
+              <label
+                >Email<input
+                  id="reg-email"
+                  placeholder="Email"
+                  type="email"
+                  required
+              /></label>
+              <label
+                >Password<input
+                  id="reg-pass"
+                  placeholder="Password"
+                  type="password"
+                  required
+              /></label>
+              <button id="btn-register" class="btn primary">Register</button>
+            </div>
+            <div class="form">
+              <h3>Sign in</h3>
+              <label
+                >Email<input
+                  id="login-email"
+                  placeholder="Email"
+                  type="email"
+                  required
+              /></label>
+              <label
+                >Password<input
+                  id="login-pass"
+                  placeholder="Password"
+                  type="password"
+                  required
+              /></label>
+              <button id="btn-login" class="btn primary">Login</button>
+            </div>
+          </div>
+          <div
+            class="auth-messages"
+            style="display: flex; gap: 20px; margin-top: 10px"
+          >
+            <div id="reg-msg" class="muted" style="flex: 1"></div>
+            <div
+              id="login-msg"
+              class="muted"
+              style="flex: 1; text-align: left"
+            ></div>
+          </div>
+        </section>
+
+        <section id="main" class="card" style="display: none">
+          <div class="top">
+            <h2>My Reports</h2>
+            <div class="upload-area">
+              <label class="file-label">
+                <input id="file-input" type="file" />
+                <span class="file-choose">Choose File</span>
+              </label>
+              <button id="btn-upload" class="btn success">Upload</button>
+              <button id="btn-logout" class="btn">Logout</button>
+            </div>
+          </div>
+          <div id="status-msg" class="status-line muted"></div>
+
+          <div class="table-wrap">
+            <table id="reports-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div id="detail" class="detail-card" style="display: none">
+            <div class="detail-header">
+              <div>
+                <h3>Report Result</h3>
+                <div class="small muted" id="detail-sub">Result details</div>
+              </div>
+              <div class="detail-actions">
+                <!-- <input id="detail-search" placeholder="Search..." /> -->
+                <button id="btn-copy" class="btn">Copy</button>
+                <button id="btn-download" class="btn">Download</button>
+                <button id="close-detail" class="btn">Close</button>
+              </div>
+            </div>
+            <div class="detail-body">
+              <div class="tabs">
+                <button class="tab active" data-tab="json">JSON</button>
+                <button class="tab" data-tab="table">Key/Values</button>
+              </div>
+              <div class="tab-content" id="tab-json">
+                <pre id="detail-json" class="code-block"></pre>
+              </div>
+              <div class="tab-content" id="tab-table" style="display: none">
+                <div id="detail-kv"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <!-- Preview modal -->
+    <div id="preview-modal" class="modal" style="display: none">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel">
+        <div class="modal-header">
+          <h4 id="modal-title">Preview</h4>
+          <button id="modal-close" class="btn">Close</button>
+        </div>
+        <div class="modal-body">
+          <iframe
+            id="modal-iframe"
+            src=""
+            frameborder="0"
+            style="width: 100%; height: 80vh"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Confirm modal -->
+    <div id="confirm-modal" class="confirm-modal" style="display: none">
+      <div class="confirm-backdrop"></div>
+      <div class="confirm-panel">
+        <div class="confirm-body">
+          <h4 id="confirm-title">Confirm delete</h4>
+          <p id="confirm-msg">
+            If you confirm then this record will be permenentely remove from
+            your list you can not access this document any more
+          </p>
+        </div>
+        <div class="confirm-actions">
+          <button id="confirm-cancel" class="btn">Cancel</button>
+          <button id="confirm-ok" class="btn danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
